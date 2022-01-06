@@ -4,8 +4,6 @@ import re
 
 program = open("r.v2.bas", 'r');
 
-tokens = "(if|get|goto|then|for|and|or|gosub|next|read|to|poke|print|data|:)"
-
 # keyworks from here:
 # https://github.com/DNSGeek/vim-cbmbasic
 tokens = "\
