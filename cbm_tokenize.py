@@ -30,7 +30,7 @@ for x in tokens:
 
 token_regex += (":)")  # also add ":" as token
 
-
+# TODO - leave things in quotes alone
 
 for line in program:
     tokenized = re.split(token_regex, line.strip()) 
