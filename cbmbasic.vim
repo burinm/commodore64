@@ -61,12 +61,16 @@ syntax match cbmBasicOperator "\v-"
 syntax match cbmBasicOperator "\v\="
 "highlight link cbmBasicOperator Operator
 
-syntax region cbmBasicString start=/\v"/ skip=/\v\\./ end=/\v"/
-highlight link cbmBasicString String
+syntax region cbmBasicString start=/\v"/ skip=/\v\\./ end=/\v"/ contains=cbmBasicNonPrintable
+"highlight link cbmBasicString type
+"highlight link cbmBasicString String
 
 syntax match cbmBasicNumber "\v<\d+>"
 syntax match cbmBasicNumber "\v<\d+\.\d+>"
 "highlight link cbmBasicNumber Number
 
-syntax match cbmLineNumber "^\s*\v<\d+>"
+syntax region cbmBasicNonPrintable start=/{/ skip=/\v\\./ end=/}/ contained
+highlight link cbmBasicNonPrintable preproc
+
+syntax match cbmLineNumber "\v^\s*<\d+>"
 highlight link cbmLineNumber Constant
