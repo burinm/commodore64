@@ -3,6 +3,11 @@
 import re
 import sys
 
+# Note:
+# ?syntax error bug with INPUT token
+# i.e.   input "stuff" ;s
+# must have ';' right next to quote
+
 # keywords from here:
 # (1) petcat -k2 | tr -d '\n' | sed 's/\s/ /g'
 # (2) then manually edit and escape: ',' '+' '*' '$'
