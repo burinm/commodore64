@@ -52,6 +52,7 @@ highlight link cbmBasicLanguageKeywords Keyword
 
 syntax match cbmBasicComment "\vREM.*$"
 syntax match cbmBasicComment "\v\#\!.*$"
+syntax match cbmBasicComment "\v;.*$"
 highlight link cbmBasicComment Comment
 
 syntax match cbmBasicOperator "\v\*"
