@@ -11,6 +11,10 @@ endif
 
 let b:current_syntax = "cbmbasic"
 
+" Make sure lines aren't over 255
+" https://vim.fandom.com/wiki/Highlight_long_lines
+syntax match ErrorMsg '\%>80v.\+'
+
 " Keywords
 syntax keyword cbmBasicLanguageKeywords abs and asc atn chr$ close
 syntax keyword cbmBasicLanguageKeywords ABS AND ASC ATN CHR$ CLOSE
