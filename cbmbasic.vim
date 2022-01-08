@@ -11,9 +11,10 @@ endif
 
 let b:current_syntax = "cbmbasic"
 
-" Make sure lines aren't over 255
+" Make sure lines aren't over 256
 " https://vim.fandom.com/wiki/Highlight_long_lines
-syntax match ErrorMsg '\%>80v.\+'
+syntax match cbmBasicLineTooLong '\%>256v.\+'
+highlight link cbmBasicLineTooLong ErrorMsg
 
 " Keywords
 syntax keyword cbmBasicLanguageKeywords abs and asc atn chr$ close
@@ -54,9 +55,9 @@ syntax keyword cbmBasicLanguageKeywords TO USR VAL VERIFY WAIT
 
 highlight link cbmBasicLanguageKeywords Keyword
 
-syntax match cbmBasicComment "\vREM.*$"
-syntax match cbmBasicComment "\v\#\!.*$"
-syntax match cbmBasicComment "\v;.*$"
+syntax match cbmBasicComment "\vREM.*$" contains=cbmBasicLineTooLong
+syntax match cbmBasicComment "\v\#\!.*$" contains=cbmBasicLineTooLong
+syntax match cbmBasicComment "\v;.*$" contains=cbmBasicLineTooLong
 highlight link cbmBasicComment Comment
 
 syntax match cbmBasicOperator "\v\*"
