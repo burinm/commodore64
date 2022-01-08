@@ -23,11 +23,7 @@ no_spaces = "asc atn chr\$ cos exp fre int left\$ len log mid\$ peek right\$ rnd
 # Don't put spaces around operators (my preference)
 no_operators = "\+ - \* / ^ > = <".split() 
 
-
 tokens = set(tokens) - set(no_spaces) - set(no_operators)
-
-# tokens = tokens.split()
-
 
 token_regex = "("
 for x in tokens:
@@ -35,7 +31,6 @@ for x in tokens:
     token_regex += "|"
 
 token_regex += (":)")  # also add ":" as token
-print(token_regex)
 
 # TODO - leave things in quotes alone
 
