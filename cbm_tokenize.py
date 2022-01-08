@@ -3,14 +3,9 @@
 import re
 import sys
 
-# TODO - this bug, leave things in quotes alone
-#   500 print "{ clr }"
-
-
-
 # keywords from here:
 # (1) petcat -k2 | tr -d '\n' | sed 's/\s/ /g'
-# (2) then manually edit and escape: ',' '+' '*' '$' 
+# (2) then manually edit and escape: ',' '+' '*' '$'
 # (3) apparently "go" is a keyword bug, remove from list
 # (4) Also, they are inconsistant with keywords that take (), remove '('
 
@@ -31,7 +26,6 @@ for x in tokens:
     token_regex += "|"
 
 # Make quotes "stuff" it's own token
-#token_regex += ('".+?"|')  # Doesn't match ""
 token_regex += ('".*"|')
 # Add ":" as a token - and add closing ')' to regex
 token_regex += (":)")
@@ -40,6 +34,7 @@ token_regex += (":)")
 for line in sys.stdin:
     tokenized = re.split(token_regex, line.strip())
     # print(tokenized)
+    line = ""
     for tok in tokenized:
         tok = tok.strip()
         # hack to make a comparison operator followed by a
@@ -48,9 +43,9 @@ for line in sys.stdin:
         #  nonsense.
         if re.match('.*=$|.*<>$|.*<$|.*>$', tok):
             # I like a="", not a= ""
-            print("{}".format(tok),end='')
+            line += tok
             continue
         if tok != '':
-            print("{} ".format(tok),end='')
+            line += tok + " "
             pass
-    print("")
+    print(line.strip())
