@@ -56,6 +56,7 @@ syntax keyword cbmBasicLanguageKeywords TO USR VAL VERIFY WAIT
 highlight link cbmBasicLanguageKeywords Keyword
 
 syntax match cbmBasicComment "\vREM.*$" contains=cbmBasicLineTooLong
+syntax match cbmBasicComment "\vrem.*$" contains=cbmBasicLineTooLong
 syntax match cbmBasicComment "\v\#\!.*$" contains=cbmBasicLineTooLong
 syntax match cbmBasicComment "\v^;.*$" contains=cbmBasicLineTooLong
 highlight link cbmBasicComment Comment

@@ -3,10 +3,13 @@
 import re
 import sys
 
-# Note:
+# Bug:
 # ?syntax error bug with INPUT token
 # i.e.   input "stuff" ;s
 # must have ';' right next to quote
+
+# Bug:
+# Program still tokenizes things in comment sections...
 
 # keywords from here:
 # (1) petcat -k2 | tr -d '\n' | sed 's/\s/ /g'
@@ -40,17 +43,28 @@ for line in sys.stdin:
     tokenized = re.split(token_regex, line.strip())
     # print(tokenized)
     line = ""
-    for tok in tokenized:
-        tok = tok.strip()
+    for index in range(len(tokenized)):
+        tokenized[index] = tokenized[index].strip()
+
+        # Ignore after REM comment
+        if re.match('^rem$', tokenized[index]):
+            line += "".join(tokenized[index:])  # rest of the line
+            break
+
+        # Ignore after ; comment
+        if re.match('^;.*', tokenized[index]):
+            line = "".join(tokenized)
+            break
+
         # hack to make a comparison operator followed by a
         #  token have no spaces. This happens to just be:
         #  <comparison>"string", all other combos are
         #  nonsense.
-        if re.match('.*=$|.*<>$|.*<$|.*>$', tok):
+        if re.match('.*=$|.*<>$|.*<$|.*>$', tokenized[index]):
             # I like a="", not a= ""
-            line += tok
+            line += tokenized[index]
             continue
-        if tok != '':
-            line += tok + " "
+        if tokenized[index] != '':
+            line += tokenized[index] + " "
             pass
     print(line.strip())
