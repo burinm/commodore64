@@ -57,7 +57,7 @@ highlight link cbmBasicLanguageKeywords Keyword
 
 syntax match cbmBasicComment "\vREM.*$" contains=cbmBasicLineTooLong
 syntax match cbmBasicComment "\v\#\!.*$" contains=cbmBasicLineTooLong
-syntax match cbmBasicComment "\v;.*$" contains=cbmBasicLineTooLong
+syntax match cbmBasicComment "\v^;.*$" contains=cbmBasicLineTooLong
 highlight link cbmBasicComment Comment
 
 syntax match cbmBasicOperator "\v\*"
