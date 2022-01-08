@@ -1,0 +1,2 @@
+#!/bin/bash
+IFS=$'\n' ; for i in $(ls -1); do petcat $i | ../cbm_tokenize.py > source/$i.bas; done
