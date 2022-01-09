@@ -100,13 +100,15 @@ except FileNotFoundError:
 newdir = os.popen("pwd").read()
 print("Expanding into:", newdir)
 
-EXTRACT_DISK_PRG = C1541 + " -attach ../" + disk + " -read "
-EXTRACT_DISK_SEQ = C1541 + " -attach ../" + disk + " -extract "
+EXTRACT_DISK_FILE = C1541 + " -attach ../" + disk + " -read "
 
 for k in files.keys():
     if files[k]['type'] == "prg":
-        command = EXTRACT_DISK_PRG + k + " " + k + ".prg"
+        command = EXTRACT_DISK_FILE + k + " " + k + ".prg"
         print(command)
         os.system(command)
     if files[k]['type'] == "seq":
-        print("skipping: {}.seq".format(k))
+        extract_command = '"' + k.strip('"') + ",s" + '"'
+        command = EXTRACT_DISK_FILE + extract_command + " " + k + ".seq"
+        print(command)
+        os.system(command)
