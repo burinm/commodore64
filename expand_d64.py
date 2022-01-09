@@ -6,7 +6,7 @@ import re
 
 C1541 = "/usr/local/bin/c1541"
 PETCAT = "/usr/local/bin/petcat"
-CBM_TOKENIZE = "../cbm_tokenize.py"
+CBM_TOKENIZE = "/home/burin/src/commodore64/cbm_tokenize.py"
 
 for f in [C1541, PETCAT, CBM_TOKENIZE]:
     if not os.path.exists(f):
@@ -33,7 +33,7 @@ header = dirlist.pop(0)
 # print header
 print("[{}]".format(header))
 
-# header = [0 "X               " YY ZZ] 
+# header = [0 "X               " YY ZZ]
 # diskname = "X.YY"
 diskbasename = header.split('"')[1].strip()
 diskdotname = header.split('"')[2].split()[0].strip()
@@ -59,8 +59,6 @@ for k in files.keys():
    print("{:<20} {:<3} blocks {:<3}".format(k, files[k]['size'], files[k]['type']))
 
 print("\n[{}]\n".format(diskname))
-
-
 
 
 
@@ -112,3 +110,18 @@ for k in files.keys():
         command = EXTRACT_DISK_FILE + extract_command + " " + k + ".seq"
         print(command)
         os.system(command)
+
+if os.system("mkdir source") != 0:
+    print("couldn't create \"source\" directory!")
+    sys.exit()
+
+EXTRACT_AND_PROCESS_SOURCE = PETCAT + " | " + CBM_TOKENIZE + " > source/"
+for k in files.keys():
+    if files[k]['type'] == "prg":
+        command = "cat " + k + ".prg | " + EXTRACT_AND_PROCESS_SOURCE + k + ".bas"
+        print(command)
+        os.system(command)
+    if files[k]['type'] == "seq":
+        print("skipping {}.seq, don't know how to convert".format(k))
+
+
