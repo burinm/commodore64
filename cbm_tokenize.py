@@ -40,6 +40,11 @@ token_regex += (":)")
 
 
 for line in sys.stdin:
+    # Ignore after ; comment
+    if re.match('^;.*', line):
+        print(line.strip())
+        continue
+
     tokenized = re.split(token_regex, line.strip())
     # print(tokenized)
     line = ""
@@ -49,11 +54,6 @@ for line in sys.stdin:
         # Ignore after REM comment
         if re.match('^rem$', tokenized[index]):
             line += "".join(tokenized[index:])  # rest of the line
-            break
-
-        # Ignore after ; comment
-        if re.match('^;.*', tokenized[index]):
-            line = "".join(tokenized)
             break
 
         # hack to make a comparison operator followed by a
